@@ -1,6 +1,7 @@
 import Foundation
 
-//Node must be class and not a struct becasue Classes are reference objects in Swift
+
+//Node must be class and not a struct because Classes are reference objects in Swift
 class Node <T> {
     var next: Node?
     var last: Node?
@@ -12,8 +13,9 @@ class Node <T> {
 }
 
 class LinkedList<T> {
-    var HEAD, TAIL : Node<T>?
-
+    private var HEAD, TAIL: Node<T>?
+    private var count = 0
+    
     init() {
         HEAD = nil
         TAIL = nil
@@ -22,14 +24,25 @@ class LinkedList<T> {
     func addNode(val: T){
         let tempNode = Node(value: val)
         guard (HEAD != nil) else{
-            HEAD = (tempNode )
-            TAIL = (tempNode )
+            HEAD = (tempNode)
+            TAIL = (tempNode)
+            count += 1
             return
         }
         TAIL?.next = (tempNode )
         TAIL = TAIL!.next
+        count += 1
         
     }
+    
+//    func insertNodeAt(val: T, index : Int){
+//        guard (index > count) else{
+//            print("The Linked does not contain a node at the designted depth level")
+//            return
+//        }
+//        let tempNode = Node(value: val)
+//
+//    }
     
     func traverseNode(node : Node<T>?){
         guard (node != nil) else{
@@ -61,12 +74,19 @@ class LinkedList<T> {
         }
         return TAIL
     }
+    
     func isEmpty()-> Bool{
         guard HEAD != nil else {
             return true
         }
         return false
     }
+    
+    func getCount() -> Int{
+        return count
+    }
+    
+    
 }
 
 
@@ -82,6 +102,9 @@ linkedList.addNode(val: "Hello World")
 linkedList.addNode(val: 4)
 linkedList.traverseList(Node: linkedList.getFirstNode())
 var last = linkedList.getLastNode()
+var count = linkedList.getCount()
+print("The linked list has \(count) nodes.")
+
 
 
 
